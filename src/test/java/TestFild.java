@@ -32,7 +32,7 @@ public class TestFild {
     @Test
     public void testRandom() {
         Cell[][] defoltGride = field.getGride();
-       field.generateRandomField();
+        field.generateRandomField();
         Cell[][] randomGride = field.getGride();
         boolean isNotEquals = false;
         for (int i = 0; i < randomGride.length; i++) {
@@ -43,8 +43,41 @@ public class TestFild {
             }
 
         }
-        Assert.assertEquals(true,isNotEquals);
+        Assert.assertEquals(true, isNotEquals);
 
     }
 
+    @Test
+    public void testGetGride() {
+        Assert.assertNotNull(field.getGride());
+    }
+
+    @Test(expected = Exception.class)
+    public void testSetGideExeption() throws Exception {
+        field.setGride(11, 1, Cell.mine);
+        Assert.assertEquals(Cell.mine, field.getGride()[1][1]);
+    }
+
+    @Test
+    public void testSetGide() throws Exception {
+        field.setGride(1, 1, Cell.mine);
+        Assert.assertEquals(Cell.mine, field.getGride()[1][1]);
+    }
+
+    @Test(expected = Exception.class)
+    public void testGetGideExeption() throws Exception {
+        field.getCell(11, 1);
+    }
+
+    @Test
+    public void testGetGide() throws Exception {
+        testSetGide();
+        Assert.assertEquals(Cell.mine, field.getCell(1, 1));
+    }
+@Test
+    public void testisCellNotInField(){
+    Assert.assertEquals(field.isCellNotInField(1,1),false);
+    Assert.assertEquals(field.isCellNotInField(1,11),true);
+
+}
 }

@@ -12,11 +12,11 @@ public class Field {
         }
     }
 
-    public Cell[][] getGride() {
-        return cloneGride();
-    }
+//    public Cell[][] getGride() {
+//     return cloneGride();
+//    }
 
-    private Cell[][] cloneGride() {
+    public Cell[][] getGride() {
         Cell[][] tempGride = new Cell[10][10];
         for (int i = 0; i < tempGride.length; i++) {
             for (int j = 0; j < tempGride[i].length; j++) {
@@ -25,6 +25,7 @@ public class Field {
         }
         return tempGride;
     }
+
     public void generateRandomField() {
         int count = 0;
         for (int i = 0; i < gride.length; i++) {
@@ -51,13 +52,30 @@ public class Field {
             gride[randomX2][randomY2] = tempCell;
             count++;
         }
-
         for (int i = 0; i < gride.length; i++) {
             for (int j = 0; j < gride[i].length; j++) {
-                System.out.print(gride[i][j] + " ");
+                if (gride[i][j] == Cell.unknown)
+                    gride[i][j] = Cell.clear;
             }
-            System.out.println();
         }
-
     }
+
+    public void setGride(int x, int y, Cell type) throws Exception {
+        if (isCellNotInField(x, y)) {
+            throw new Exception("Wrong set  coordinates");
+        }
+        gride[x][y] = type;
+    }
+
+    public Cell getCell(int x, int y) throws Exception {
+        if (isCellNotInField(x, y)) {
+            throw new Exception("Wrong get  coordinates");
+        }
+        return gride[x][y];
+    }
+
+    public Boolean isCellNotInField(int x, int y) {
+        return x < 0 || x > 10 || y < 0 || y > 10;
+    }
+
 }
