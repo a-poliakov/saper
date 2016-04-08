@@ -1,42 +1,38 @@
 import java.util.Random;
 
 public class Field {
-    private Cell[][] gride;
+    private Cell[][] grid;
 
     public Field() {
-        gride = new Cell[10][10];
-        for (int i = 0; i < gride.length; i++) {
-            for (int j = 0; j < gride[i].length; j++) {
-                gride[i][j] = Cell.unknown;
+        grid = new Cell[10][10];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = Cell.unknown;
             }
         }
     }
 
-//    public Cell[][] getGride() {
-//     return cloneGride();
-//    }
-
-    public Cell[][] getGride() {
-        Cell[][] tempGride = new Cell[10][10];
-        for (int i = 0; i < tempGride.length; i++) {
-            for (int j = 0; j < tempGride[i].length; j++) {
-                tempGride[i][j] = gride[i][j];
+    public Cell[][] getGrid() {
+        Cell[][] tempGrid = new Cell[10][10];
+        for (int i = 0; i < tempGrid.length; i++) {
+            for (int j = 0; j < tempGrid[i].length; j++) {
+                tempGrid[i][j] = grid[i][j];
             }
         }
-        return tempGride;
+        return tempGrid;
     }
 
     public void generateRandomField() {
         int count = 0;
-        for (int i = 0; i < gride.length; i++) {
+        for (int i = 0; i < grid.length; i++) {
             if (count >= 25) {
                 break;
             }
-            for (int j = 0; j < gride[i].length; j++) {
+            for (int j = 0; j < grid[i].length; j++) {
                 if (count >= 25) {
                     break;
                 }
-                gride[i][j] = Cell.mine;
+                grid[i][j] = Cell.mine;
                 count++;
             }
         }
@@ -47,15 +43,15 @@ public class Field {
             int randomX2 = random.nextInt(10);
             int randomY1 = random.nextInt(10);
             int randomY2 = random.nextInt(10);
-            Cell tempCell = gride[randomX1][randomY1];
-            gride[randomX1][randomY1] = gride[randomX2][randomY2];
-            gride[randomX2][randomY2] = tempCell;
+            Cell tempCell = grid[randomX1][randomY1];
+            grid[randomX1][randomY1] = grid[randomX2][randomY2];
+            grid[randomX2][randomY2] = tempCell;
             count++;
         }
-        for (int i = 0; i < gride.length; i++) {
-            for (int j = 0; j < gride[i].length; j++) {
-                if (gride[i][j] == Cell.unknown)
-                    gride[i][j] = Cell.clear;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == Cell.unknown)
+                    grid[i][j] = Cell.clear;
             }
         }
     }
@@ -64,18 +60,17 @@ public class Field {
         if (isCellNotInField(x, y)) {
             throw new Exception("Wrong set  coordinates");
         }
-        gride[x][y] = type;
+        grid[x][y] = type;
     }
 
     public Cell getCell(int x, int y) throws Exception {
         if (isCellNotInField(x, y)) {
             throw new Exception("Wrong get  coordinates");
         }
-        return gride[x][y];
+        return grid[x][y];
     }
 
     public Boolean isCellNotInField(int x, int y) {
         return x < 0 || x > 10 || y < 0 || y > 10;
     }
-
 }

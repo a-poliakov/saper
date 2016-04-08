@@ -20,7 +20,7 @@ public class TestFild {
 
     @Test
     public void testCreateGrid() {
-        Cell[][] grid = field.getGride();
+        Cell[][] grid = field.getGrid();
         assertNotNull("grid is null", grid);
         for (Cell[] cellRow : grid) {
             for (Cell cell : cellRow) {
@@ -31,9 +31,9 @@ public class TestFild {
 
     @Test
     public void testRandom() {
-        Cell[][] defoltGride = field.getGride();
+        Cell[][] defoltGride = field.getGrid();
         field.generateRandomField();
-        Cell[][] randomGride = field.getGride();
+        Cell[][] randomGride = field.getGrid();
         boolean isNotEquals = false;
         for (int i = 0; i < randomGride.length; i++) {
             for (int j = 0; j < randomGride[i].length; j++) {
@@ -49,19 +49,19 @@ public class TestFild {
 
     @Test
     public void testGetGride() {
-        Assert.assertNotNull(field.getGride());
+        Assert.assertNotNull(field.getGrid());
     }
 
     @Test(expected = Exception.class)
     public void testSetGideExeption() throws Exception {
         field.setGride(11, 1, Cell.mine);
-        Assert.assertEquals(Cell.mine, field.getGride()[1][1]);
+        Assert.assertEquals(Cell.mine, field.getGrid()[1][1]);
     }
 
     @Test
     public void testSetGide() throws Exception {
         field.setGride(1, 1, Cell.mine);
-        Assert.assertEquals(Cell.mine, field.getGride()[1][1]);
+        Assert.assertEquals(Cell.mine, field.getGrid()[1][1]);
     }
 
     @Test(expected = Exception.class)
