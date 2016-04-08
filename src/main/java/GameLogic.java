@@ -15,37 +15,59 @@ public class GameLogic {
         new GameLogic().gameProccess();
     }
 
-    public void gameProccess() {
-        int x;
-        int y;
+    public boolean gameProccess() {
+
         while (countOfTurns < 10) {
-            Scanner scanner = new Scanner(System.in);
-            try {
-                System.out.println("Enter the coordinates for the shot");
-                x = scanner.nextInt();
-                y = scanner.nextInt();
-            } catch (Exception e) {
-                continue;
+            if (gameTurn() == false) {
+                break;
             }
-            try {
-                if (userField.getCell(x, y) != Cell.unknown) {
-                    System.out.println("you repeat yourself");
-                    continue;
-                }
-                userField.setGride(x, y, nativeField.getCell(x, y));
-                if (nativeField.getCell(x, y) == Cell.mine) {
-                    System.out.println("GAME OVER....");
-                    break;
-                } else if (countOfTurns == 9) {
-                    System.out.println("YOU WIN THE GAME!!!!!!!!!!!!!!!!!!!");
-                    break;
-                } else {
-                    countOfTurns++;
-                }
-                printUserField(userField);
-            } catch (Exception e) {
-                System.out.println("Wrong coordinates! Try again!");
+        }return  true;
+
+    }
+
+    public Boolean gameTurn() {
+        int[] coordinates = playerInput();
+        if (coordinates == null) {
+            return true;
+        }
+        return processUserInput(coordinates[0], coordinates[1]);
+    }
+
+    public int[] playerInput() {
+        int[] coordinates = new int[2];
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.println("Enter the coordinates for the shot");
+            coordinates[0] = scanner.nextInt();
+            coordinates[1] = scanner.nextInt();
+        } catch (Exception e) {
+            System.out.println("Wrong Scaner  coordinates! Try again!");
+            return null;
+        }
+        return coordinates;
+    }
+
+    public Boolean processUserInput(int x, int y) {
+        try {
+            if (userField.getCell(x, y) != Cell.unknown) {
+                System.out.println("you repeat yourself");
+                return true;
             }
+            userField.setGride(x, y, nativeField.getCell(x, y));
+            if (nativeField.getCell(x, y) == Cell.mine) {
+                System.out.println("GAME OVER....");
+                return false;
+            } else if (countOfTurns == 9) {
+                System.out.println("YOU WIN THE GAME!!!!!!!!!!!!!!!!!!!");
+                return false;
+            } else {
+                countOfTurns++;
+            }
+            printUserField(userField);
+            return true;
+        } catch (Exception e) {
+            System.out.println("Wrong fields  coordinates! Try again!");
+            return true;
         }
     }
 
@@ -56,5 +78,8 @@ public class GameLogic {
             }
             System.out.println();
         }
+    }
+    public void setNativeField(Field field){
+        nativeField  = field;
     }
 }
