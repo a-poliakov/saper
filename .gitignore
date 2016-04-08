@@ -1,3 +1,5 @@
 .idea/
 saper.iml
 target/
+diagram.svg
+classes.plantuml

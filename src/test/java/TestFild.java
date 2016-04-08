@@ -41,10 +41,8 @@ public class TestFild {
                     isNotEquals = true;
                 }
             }
-
         }
         Assert.assertEquals(true, isNotEquals);
-
     }
 
     @Test
@@ -74,10 +72,10 @@ public class TestFild {
         testSetGide();
         Assert.assertEquals(Cell.mine, field.getCell(1, 1));
     }
-@Test
-    public void testisCellNotInField(){
-    Assert.assertEquals(field.isCellNotInField(1,1),false);
-    Assert.assertEquals(field.isCellNotInField(1,11),true);
 
-}
+    @Test
+    public void testisCellNotInField(){
+        Assert.assertEquals(field.isCellNotInField(1,1),false);
+        Assert.assertEquals(field.isCellNotInField(1,11),true);
+    }
 }
