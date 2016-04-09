@@ -79,7 +79,7 @@ public class GameLogic {
         }
     }
 
-    public void setNativeField(Field field){
+    private void setNativeField(Field field){
         nativeField  = field;
     }
 }

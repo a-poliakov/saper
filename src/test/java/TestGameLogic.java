@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 
 public class TestGameLogic {
     final StringBuilder output = new StringBuilder();
@@ -61,14 +62,17 @@ public class TestGameLogic {
 
     @Test
     public void testGameProccess() throws Exception {
-        GameLogic gameLogic = new GameLogic();
+        Class gameLogicClass = GameLogic.class;
+        Method setNativeField = gameLogicClass.getDeclaredMethod("setNativeField", Field.class);
+        setNativeField.setAccessible(true);
+        GameLogic gameLogic = (GameLogic) gameLogicClass.newInstance();
         Field field = new Field();
-        field.setGride(0,0,Cell.clear);
+        field.setGride(0, 0, Cell.clear);
         for (int i = 0; i < 10; i++) {
             field.setGride(1, i, Cell.clear);
             input.append("1 " + i + " \n");
         }
-        gameLogic.setNativeField(field);
+        setNativeField.invoke(gameLogic, field);
         input.append("0 0 \n");
         /*for (int i=0;i<10;i++){
            gameLogic.processUserInput(1,i);
@@ -78,12 +82,14 @@ public class TestGameLogic {
 
     @Test
     public void testGameTurn() throws Exception {
-        GameLogic gameLogic = new GameLogic();
+        Class gameLogicClass = GameLogic.class;
+        Method setNativeField = gameLogicClass.getDeclaredMethod("setNativeField", Field.class);
+        setNativeField.setAccessible(true);
+        GameLogic gameLogic = (GameLogic) gameLogicClass.newInstance();
         Field field = new Field();
-
         field.setGride(1, 2, Cell.clear);
         field.setGride(1, 1, Cell.mine);
-        gameLogic.setNativeField(field);
+        setNativeField.invoke(gameLogic, field);
         input.append("1 2");
         Assert.assertTrue(gameLogic.gameTurn());
 //        input.delete(0,2);
@@ -107,11 +113,14 @@ public class TestGameLogic {
 
     @Test
     public void testProcessUserInput() throws Exception {
-        GameLogic gameLogic = new GameLogic();
+        Class gameLogicClass = GameLogic.class;
+        Method setNativeField = gameLogicClass.getDeclaredMethod("setNativeField", Field.class);
+        setNativeField.setAccessible(true);
+        GameLogic gameLogic = (GameLogic) gameLogicClass.newInstance();
         Field field = new Field();
         field.setGride(1, 2, Cell.clear);
         field.setGride(1, 1, Cell.mine);
-        gameLogic.setNativeField(field);
+        setNativeField.invoke(gameLogic, field);
         Assert.assertTrue(gameLogic.processUserInput(1, 2));
         Assert.assertFalse(gameLogic.processUserInput(1, 1));
     }
