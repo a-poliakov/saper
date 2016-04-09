@@ -16,13 +16,12 @@ public class GameLogic {
     }
 
     public boolean gameProccess() {
-
         while (countOfTurns < 10) {
             if (gameTurn() == false) {
                 break;
             }
-        }return  true;
-
+        }
+        return  true;
     }
 
     public Boolean gameTurn() {
@@ -79,6 +78,7 @@ public class GameLogic {
             System.out.println();
         }
     }
+
     public void setNativeField(Field field){
         nativeField  = field;
     }

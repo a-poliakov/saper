@@ -23,6 +23,9 @@ public class TestGameLogic {
                 }
                 int currentChar = input.toString().charAt(position);
                 position++;
+                if((char)currentChar == '\n'){
+                    return -1;
+                }
                 return currentChar;
             }
         });
@@ -63,13 +66,14 @@ public class TestGameLogic {
         field.setGride(0,0,Cell.clear);
         for (int i = 0; i < 10; i++) {
             field.setGride(1, i, Cell.clear);
+            input.append("1 " + i + " \n");
         }
         gameLogic.setNativeField(field);
-//        input.append("0 0");
-        for (int i=0;i<10;i++){
-           gameLogic.processUserInput(0,i);
-        }
-Assert.assertTrue(gameLogic.gameProccess());
+        input.append("0 0 \n");
+        /*for (int i=0;i<10;i++){
+           gameLogic.processUserInput(1,i);
+        }*/
+        Assert.assertTrue(gameLogic.gameProccess());
     }
 
     @Test
@@ -105,7 +109,6 @@ Assert.assertTrue(gameLogic.gameProccess());
     public void testProcessUserInput() throws Exception {
         GameLogic gameLogic = new GameLogic();
         Field field = new Field();
-
         field.setGride(1, 2, Cell.clear);
         field.setGride(1, 1, Cell.mine);
         gameLogic.setNativeField(field);
